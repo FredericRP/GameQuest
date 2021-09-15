@@ -1,0 +1,19 @@
+{
+    "name": "FredericRP.GameQuest.Editor",
+    "rootNamespace": "",
+    "references": [
+        "FredericRP.GameQuest.Runtime",
+        "FredericRP.PersistentDataSystem.Editor"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

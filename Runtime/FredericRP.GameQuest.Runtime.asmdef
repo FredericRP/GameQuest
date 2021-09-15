@@ -1,0 +1,23 @@
+{
+    "name": "FredericRP.GameQuest.Runtime",
+    "rootNamespace": "",
+    "references": [
+        "FredericRP.Singleton.Runtime",
+        "FredericRP.PersistentDataSystem.Runtime",
+        "FredericRP.GameEventHandler.Runtime",
+        "FredericRP.Popups.Runtime",
+        "Unity.Localization",
+        "FredericRP.StringDataList.Runtime",
+        "FredericRP.PlayerCurrency.Runtime",
+        "Unity.TextMeshPro"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
