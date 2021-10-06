@@ -31,7 +31,7 @@ namespace FredericRP.GameQuest
       /// <summary>
       /// Launch date of the quest. If it's in the future, it is not launched yet (!)
       /// </summary>
-      public System.DateTime LaunchDate { get { return String.IsNullOrEmpty(launchDate) ? System.DateTime.Now.AddYears(1) : System.DateTime.ParseExact(launchDate, dateTimeFormat, dateTimeProvider ); } set { launchDate = value.ToString(dateTimeFormat); } }
+      public System.DateTime LaunchDate { get { return String.IsNullOrEmpty(launchDate) ? System.DateTime.Now.AddYears(1) : System.DateTime.ParseExact(launchDate, dateTimeFormat, dateTimeProvider); } set { launchDate = value.ToString(dateTimeFormat); } }
       public LaunchMode launchMode;
       public GameQuestStatus gameQuestStatus = GameQuestStatus.Locked;
       public int currentProgress;
@@ -50,21 +50,6 @@ namespace FredericRP.GameQuest
         launchMode = LaunchMode.Immediate;
         gameQuestStatus = _gameQuestStatus;
       }
-
-      /// <summary>
-      /// Check if find correspondance between all member variable except the status
-      /// </summary>
-      /// <param name="questProgress"></param>
-      /// <returns></returns>
-      public bool SimilarTo(QuestProgress questProgress)
-      {
-        if (questProgress.gameQuestId == gameQuestId && questProgress.launchDate.Equals(launchDate) && questProgress.launchMode == launchMode)
-        {
-          return true;
-        }
-
-        return false;
-      }
     }
 
     /// <summary>
@@ -78,9 +63,6 @@ namespace FredericRP.GameQuest
     public override void onDataCreated(string dataVersion)
     {
       base.onDataCreated(dataVersion);
-#if UNITY_EDITOR
-      Debug.Log("New data created");
-#endif
       dataName = "GameQuestSavedData";
     }
 
@@ -98,8 +80,13 @@ namespace FredericRP.GameQuest
       QuestProgress questProgress = questProgressList.Find(quest => quest.gameQuestId == gameQuestId && (includeLocked ? true : quest.gameQuestStatus != GameQuestStatus.Locked) && (includeComplete ? true : quest.gameQuestStatus != GameQuestStatus.Complete));
       if (questProgress == null && createIfNull)
       {
-        questProgress = new QuestProgress(gameQuestId, GameQuestStatus.Locked);
-        SetQuestProgress(questProgress);
+        // Ensure the quest does not exist at all if not found with filter and need to be created
+        questProgress = questProgressList.Find(quest => quest.gameQuestId == gameQuestId);
+        if (questProgress == null)
+        {
+          questProgress = new QuestProgress(gameQuestId, GameQuestStatus.Locked);
+          SetQuestProgress(questProgress);
+        }
       }
       return questProgress;
     }

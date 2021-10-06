@@ -15,6 +15,9 @@ namespace Frederic.GameQuest
     [SerializeField]
     int rewardCount = 50;
 
+    public string MoneyId { get => moneyId; }
+    public int RewardCount { get => rewardCount; }
+
     public override void GiveReward(int playerId = 0)
     {
       PlayerCurrencyManager.Instance.AddToCurrency(moneyId, rewardCount);

@@ -35,6 +35,8 @@ namespace FredericRP.GameQuest
 
     public int numberOfQuestInHistoric = 5;
 
+    public GameQuestCatalog GameQuestCatalog { get => gameQuestArray; set => gameQuestArray = value; }
+
     /// <summary>
     /// Get a quest that is unlocked, useful to display the next available quest to the player
     /// </summary>

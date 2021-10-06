@@ -6,10 +6,11 @@
         "FredericRP.PersistentDataSystem.Runtime",
         "FredericRP.GameEventHandler.Runtime",
         "FredericRP.Popups.Runtime",
-        "Unity.Localization",
         "FredericRP.StringDataList.Runtime",
         "FredericRP.PlayerCurrency.Runtime",
-        "Unity.TextMeshPro"
+        "Unity.TextMeshPro",
+        "FredericRP.SimpleLocalization.Runtime",
+        "FredericRP.EasyLoading.Runtime"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

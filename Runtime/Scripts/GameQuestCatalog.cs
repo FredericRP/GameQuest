@@ -18,19 +18,6 @@ namespace FredericRP.GameQuest
     {
       return gameQuestInfoList.Find(quest => quest.gameQuestID.Equals(gameQuestID));
     }
-    /*
-        public int GetTotalGameQuestDuration()
-        {
-          int toTalGameQuestDuration = 0;
-
-          for (int i = 0; i < gameQuestInfoList.Count; i++)
-          {
-            toTalGameQuestDuration += gameQuestInfoList[i].totalDuration;
-          }
-
-          return toTalGameQuestDuration;
-        }
-        // */
 
     [System.NonSerialized]
     private System.DateTime cachedDate;
@@ -52,7 +39,7 @@ namespace FredericRP.GameQuest
 
     public void UpdateTodayQuestList(bool forceUpdate = false)
     {
-      Debug.Log("Update Today quest count force=" + forceUpdate);
+      //Debug.Log("Update Today quest count force=" + forceUpdate);
 
       List<GameQuestInfo> selectedQuestList = gameQuestInfoList;
       System.DateTime date = System.DateTime.Now;
@@ -60,7 +47,7 @@ namespace FredericRP.GameQuest
         selectedQuestList = cachedSelectedQuestList;
       else
       {
-        Debug.Log("Search for quest for date: " + date.Day + " / " + date.Month + " / " + date.Year);
+        //Debug.Log("Search for quest for date: " + date.Day + " / " + date.Month + " / " + date.Year);
         selectedQuestList = gameQuestInfoList.FindAll(quest => (quest.dayInMonth == 0 || quest.dayInMonth == date.Day) && (quest.month == 0 || quest.month == date.Month) && (quest.year == 0 || quest.year == date.Year));
         //selectedQuestList = gameQuestInfoList.FindAll(quest => (quest.dayInMonth == 0 || quest.dayInMonth == date.Day));
         // Save filtered list for future reference
@@ -71,10 +58,10 @@ namespace FredericRP.GameQuest
 
     public int TodayQuestCount()
     {
-      Debug.Log("Today quest count from list " + cachedSelectedQuestList);
+      //Debug.Log("Today quest count from list " + cachedSelectedQuestList);
       if (cachedSelectedQuestList == null)
         UpdateTodayQuestList();
-      Debug.Log("Available quest " + cachedSelectedQuestList + " count:" + cachedSelectedQuestList?.Count);
+      //Debug.Log("Available quest " + cachedSelectedQuestList + " count:" + cachedSelectedQuestList?.Count);
       if (cachedSelectedQuestList == null)
         return 0;
       return cachedSelectedQuestList.Count;

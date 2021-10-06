@@ -1,0 +1,6 @@
+quest.5 purple flowers.title	Grab purple flowers!
+quest.5 purple flowers.description	Collect 5 purple flowers
+quest.10 blue flowers.title	Grab blue flowers!
+quest.10 blue flowers.description	Collect 10 blue flowers
+ok	OK
+quest.progress	{0} / {1}

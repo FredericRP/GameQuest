@@ -36,7 +36,7 @@ namespace FredericRP.GameQuest
       // TODO: check conflicts with Localization systems
       localizationId.stringValue = gameQuestId.stringValue;
       // - line 2: date
-      position.y += EditorGUIUtility.singleLineHeight;
+      position.y += EditorGUIUtility.singleLineHeight + EditorGUIUtility.standardVerticalSpacing;
       Rect dateRect = EditorGUI.PrefixLabel(position, GUIUtility.GetControlID(FocusType.Passive), new GUIContent("Trigger date"));
       dateRect.height = EditorGUIUtility.singleLineHeight;
       var dayRect = new Rect(dateRect.x, dateRect.y, dateRect.width * 0.25f, dateRect.height);
@@ -92,7 +92,7 @@ namespace FredericRP.GameQuest
           year.intValue = DateTime.Now.Year;
       }
       // - line 3 : duration
-      position.y += EditorGUIUtility.singleLineHeight;
+      position.y += EditorGUIUtility.singleLineHeight + EditorGUIUtility.standardVerticalSpacing;
       Rect durationRect = EditorGUI.PrefixLabel(position, GUIUtility.GetControlID(FocusType.Passive), new GUIContent("Duration"));
       durationRect.height = EditorGUIUtility.singleLineHeight;
       durationRect.width -= 75;
@@ -125,7 +125,7 @@ namespace FredericRP.GameQuest
       durationUnit = EditorGUI.Popup(durationUnitRect, durationUnit, durationUnitList);
       duration.intValue = usedValue * (durationUnit == 2 ? 3600 : durationUnit == 1 ? 60 : 1);
       // - line 4 : target amount and type
-      position.y += EditorGUIUtility.singleLineHeight;
+      position.y += EditorGUIUtility.singleLineHeight + EditorGUIUtility.standardVerticalSpacing;
       Rect targetRect = EditorGUI.PrefixLabel(position, GUIUtility.GetControlID(FocusType.Passive), new GUIContent("Target (amount/type)"));
       targetRect.height = EditorGUIUtility.singleLineHeight;
       var targetAmountRect = new Rect(targetRect.x, targetRect.y, targetRect.width * 0.25f, dateRect.height);
@@ -138,11 +138,11 @@ namespace FredericRP.GameQuest
       // line 5: Reward list
       if (rewardLabel == null)
         rewardLabel = new GUIContent("Rewards");
-      position.y += EditorGUIUtility.singleLineHeight;
+      position.y += EditorGUIUtility.singleLineHeight + EditorGUIUtility.standardVerticalSpacing;
       Rect rewardRect = EditorGUI.PrefixLabel(position, GUIUtility.GetControlID(FocusType.Passive), rewardLabel);
       rewardRect.height = EditorGUIUtility.singleLineHeight;
       SerializedProperty gameQuestRewardList = property.FindPropertyRelative("gameQuestRewardList");
-      EditorGUI.PropertyField(rewardRect, gameQuestRewardList, GUIContent.none);
+      EditorGUI.PropertyField(rewardRect, gameQuestRewardList, GUIContent.none, true);
 
       // Set indent back to what it was
       EditorGUI.indentLevel = indent;
