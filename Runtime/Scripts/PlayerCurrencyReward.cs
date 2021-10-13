@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Frederic.GameQuest
 {
-  [CreateAssetMenu(menuName ="FredericRP/GameQuest/Reward/Player currency")]
+  [CreateAssetMenu(menuName ="FredericRP/Game Quest/Reward/Player currency")]
   [System.Serializable]
   public class PlayerCurrencyReward : GameQuestReward
   {

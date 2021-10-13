@@ -39,12 +39,19 @@ namespace FredericRP.GameQuest
       position.y += EditorGUIUtility.singleLineHeight + EditorGUIUtility.standardVerticalSpacing;
       Rect dateRect = EditorGUI.PrefixLabel(position, GUIUtility.GetControlID(FocusType.Passive), new GUIContent("Trigger date"));
       dateRect.height = EditorGUIUtility.singleLineHeight;
-      var dayRect = new Rect(dateRect.x, dateRect.y, dateRect.width * 0.25f, dateRect.height);
-      // Don't make child fields be indented
-      var indent = EditorGUI.indentLevel;
-      EditorGUI.indentLevel--;
-      // -- DAY IN MONTH
+
       SerializedProperty dayInMonth = property.FindPropertyRelative("dayInMonth");
+      SerializedProperty month = property.FindPropertyRelative("month");
+      SerializedProperty year = property.FindPropertyRelative("year");
+      float littleFieldWidth = 40;
+      var dayRect = new Rect(dateRect.x, dateRect.y, littleFieldWidth, dateRect.height);
+      var monthRect = new Rect(dayRect.x + dayRect.width, dateRect.y, dateRect.width - 2*littleFieldWidth - (year.intValue == 0 ? 0 : (littleFieldWidth)), dateRect.height);
+      var yearChoiceRect = new Rect(monthRect.x + monthRect.width, dateRect.y, littleFieldWidth, dateRect.height);
+      var yearIntRect = new Rect(yearChoiceRect.x + yearChoiceRect.width, dateRect.y, littleFieldWidth, dateRect.height);
+      // Don't make child fields be indented
+      //var indent = EditorGUI.indentLevel;
+      //EditorGUI.indentLevel--;
+      // -- DAY IN MONTH
       if (dayList == null)
       {
         dayList = new string[32];
@@ -54,10 +61,6 @@ namespace FredericRP.GameQuest
       }
       dayInMonth.intValue = EditorGUI.Popup(dayRect, dayInMonth.intValue, dayList);
       // -- MONTH
-      SerializedProperty month = property.FindPropertyRelative("month");
-      SerializedProperty year = property.FindPropertyRelative("year");
-      float yearWidth = dateRect.width * 0.75f - 125;
-      var monthRect = new Rect(dateRect.x + dateRect.width * 0.25f + 5, dateRect.y, 70 + (year.intValue == 0 ? yearWidth : 0), dateRect.height);
       if (monthList == null)
       {
         monthList = new string[13];
@@ -71,8 +74,6 @@ namespace FredericRP.GameQuest
       }
       month.intValue = EditorGUI.Popup(monthRect, month.intValue, monthList);
       // -- YEAR
-      var yearChoiceRect = new Rect(monthRect.x + 75 + (year.intValue == 0 ? yearWidth : 0), dateRect.y, 40, dateRect.height);
-      var yearIntRect = new Rect(yearChoiceRect.x + 45, dateRect.y, yearWidth, dateRect.height);
       if (yearChoiceList == null)
       {
         yearChoiceList = new string[2];
@@ -95,8 +96,8 @@ namespace FredericRP.GameQuest
       position.y += EditorGUIUtility.singleLineHeight + EditorGUIUtility.standardVerticalSpacing;
       Rect durationRect = EditorGUI.PrefixLabel(position, GUIUtility.GetControlID(FocusType.Passive), new GUIContent("Duration"));
       durationRect.height = EditorGUIUtility.singleLineHeight;
-      durationRect.width -= 75;
-      Rect durationUnitRect = new Rect(durationRect.x + durationRect.width + 5, durationRect.y, 70, durationRect.height);
+      durationRect.width -= 80;
+      Rect durationUnitRect = new Rect(durationRect.x + durationRect.width, durationRect.y, 80, durationRect.height);
       if (durationUnitList == null)
       {
         durationUnitList = new string[3];
@@ -129,7 +130,7 @@ namespace FredericRP.GameQuest
       Rect targetRect = EditorGUI.PrefixLabel(position, GUIUtility.GetControlID(FocusType.Passive), new GUIContent("Target (amount/type)"));
       targetRect.height = EditorGUIUtility.singleLineHeight;
       var targetAmountRect = new Rect(targetRect.x, targetRect.y, targetRect.width * 0.25f, dateRect.height);
-      var targetIdRect = new Rect(targetRect.x + targetRect.width * 0.25f + 5, targetRect.y, targetRect.width * 0.75f - 5, targetRect.height);
+      var targetIdRect = new Rect(targetRect.x + targetAmountRect.width, targetRect.y, targetRect.width * 0.75f, targetRect.height);
       SerializedProperty target = property.FindPropertyRelative("target");
       EditorGUI.PropertyField(targetAmountRect, target, GUIContent.none);
       SerializedProperty targetId = property.FindPropertyRelative("targetId");
@@ -145,7 +146,7 @@ namespace FredericRP.GameQuest
       EditorGUI.PropertyField(rewardRect, gameQuestRewardList, GUIContent.none, true);
 
       // Set indent back to what it was
-      EditorGUI.indentLevel = indent;
+      //EditorGUI.indentLevel = indent;
       // Apply modified changes
       property.serializedObject.ApplyModifiedProperties();
 

@@ -7,9 +7,7 @@ namespace FredericRP.GameQuest
   /// Simplify the call to generic methods of GameEvent
   /// </summary>
   [CreateAssetMenu(menuName = "FredericRP/Game Quest/Quest event")]
-  public class GameQuestEvent : GameEvent
+  public class GameQuestEvent : TwoTypeGameEvent<GameQuestInfo, GameQuestSavedData.QuestProgress>
   {
-    public void Raise(GameQuestInfo info, GameQuestSavedData.QuestProgress questProgress, GameEventHandler eventHandler = null) =>
-      Raise<GameQuestInfo, GameQuestSavedData.QuestProgress>(info, questProgress, eventHandler);
   }
 }

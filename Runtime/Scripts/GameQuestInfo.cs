@@ -1,7 +1,6 @@
 ﻿using FredericRP.PlayerCurrency;
 using FredericRP.StringDataList;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace FredericRP.GameQuest
 {
@@ -25,7 +24,7 @@ namespace FredericRP.GameQuest
     public int year = -1;
 
     /// <summary>
-    /// Duration in minutes of this quest when activated
+    /// Duration in seconds of this quest when activated
     /// </summary>
     public int duration = 0;
 
@@ -39,30 +38,24 @@ namespace FredericRP.GameQuest
     /// </summary>
     [Select(PlayerCurrencyData.CurrencyList)]
     public int targetId;
-       
+
     public List<GameQuestReward> gameQuestRewardList;
+
+    public GameQuestSavedData.QuestProgress runtimeQuestProgress;
 
     public static System.TimeSpan RemainingTime(GameQuestInfo questInfo, GameQuestSavedData.QuestProgress questProgress)
     {
-      System.TimeSpan time = questProgress.LaunchDate.AddSeconds(questInfo.duration).Subtract(System.DateTime.Now);
+      System.TimeSpan time;
+      // Return remaining time until the end of the quest
+      if (questProgress.LaunchDate <= System.DateTime.Now)
+        time = questProgress.LaunchDate.AddSeconds(questInfo.duration).Subtract(System.DateTime.Now);
+      else // or time until it launches if not yet launched
+        time = questProgress.LaunchDate.Subtract(System.DateTime.Now);
 
       if (time.TotalSeconds > 0)
         return time;
 
       return new System.TimeSpan(0);
     }
-
-    //public abstract void OnQuestLaunched(GameQuestSavedData.Info info);
-    //public abstract bool IsUnlocked();
-    //public abstract bool IsCompleted(GameQuestSavedData.Info info);
-    /*public virtual void Complete(bool directObtainReward)
-    {
-      if (directObtainReward)
-        GameQuestManager.Instance.GetGameQuestReward(gameQuestReward);
-    }
-    // */
-    //public abstract void Fail();
-
-    //public abstract float CompletionRate(GameQuestSavedData.Info info);
   }
 }

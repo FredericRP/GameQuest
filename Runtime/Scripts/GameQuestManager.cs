@@ -1,5 +1,4 @@
-﻿using FredericRP.EventManagement;
-using FredericRP.GenericSingleton;
+﻿using FredericRP.GenericSingleton;
 using FredericRP.PersistentData;
 using System;
 using UnityEngine;
@@ -88,25 +87,23 @@ namespace FredericRP.GameQuest
       return gameQuestArray.GetQuest(gameQuestId);
     }
 
-
     public void LaunchQuest(GameQuestInfo questInfo, GameQuestSavedData.QuestProgress questProgress)
     {
-      Debug.Log("Launch Quest " + questInfo.gameQuestID);
       questProgress.gameQuestStatus = GameQuestSavedData.GameQuestStatus.InProgress;
+      questProgress.LaunchDate = DateTime.Now;
       GameQuestSavedData gameQuestSavedData = PersistentDataSystem.Instance.GetSavedData<GameQuestSavedData>();
-      gameQuestSavedData.SetQuestProgress(questProgress);
+      questProgress = gameQuestSavedData.SetQuestProgress(questProgress);
       onGameQuestLaunch?.Raise(questInfo, questProgress);
     }
 
     /// <summary>
-    /// Complete the GameQuest and call the gameQuestInfo.Complete() to perform quest actions
+    /// Validate the GameQuest and gives the reward if <c>obtainRewardDirectlyWhenQuestCompleted</c> is <c>true</c>. Otherwise, set the status to <c>WaitingForReward</c>
     /// </summary>
     /// <param name="gameQuestInfo"></param>
-    public void CompleteGameQuest(GameQuestInfo questInfo, GameQuestSavedData.QuestProgress questProgress)
+    public void ValidateGameQuest(GameQuestInfo questInfo, GameQuestSavedData.QuestProgress questProgress)
     {
-      Debug.Log("Complete Quest " + questInfo.gameQuestID);
       GameQuestSavedData gameQuestSavedData = PersistentDataSystem.Instance.GetSavedData<GameQuestSavedData>();
-      gameQuestSavedData.SetQuestProgress(questProgress);
+      questProgress = gameQuestSavedData.SetQuestProgress(questProgress);
 
       if (obtainRewardDirectlyWhenQuestCompleted)
       {
@@ -129,7 +126,7 @@ namespace FredericRP.GameQuest
       // when expired, a quest goes back to WaitingForEnable status
       questProgress.gameQuestStatus = GameQuestSavedData.GameQuestStatus.WaitingForEnable;
 
-      gameQuestSavedData.SetQuestProgress(questProgress);
+      questProgress = gameQuestSavedData.SetQuestProgress(questProgress);
 
       onGameQuestExpire?.Raise(questInfo, questProgress);
     }
@@ -140,12 +137,12 @@ namespace FredericRP.GameQuest
       onGameQuestComplete?.Raise(questInfo, questProgress);
 
       GameQuestSavedData gameQuestSavedData = PersistentDataSystem.Instance.GetSavedData<GameQuestSavedData>();
-      gameQuestSavedData.SetQuestProgress(questProgress);
+      questProgress = gameQuestSavedData.SetQuestProgress(questProgress);
 
       for (int i = 0; i < questInfo.gameQuestRewardList.Count; i++)
       {
         questInfo.gameQuestRewardList[i].GiveReward();
-        onRewardObtained?.Raise<GameQuestReward>(questInfo.gameQuestRewardList[i]);
+        onRewardObtained?.Raise(questInfo.gameQuestRewardList[i]);
       }
     }
   }

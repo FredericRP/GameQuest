@@ -14,38 +14,27 @@ namespace FredericRP.GameQuest
     [SerializeField]
     GameQuestEvent questValidate;
 
-    [System.Serializable]
-    public class FlowerGrabStatus
-    {
-      public string gameQuestId;
-      //[HideInInspector]
-      public int totalAmount = 0;
-      //[HideInInspector]
-      public GameQuestInfo questInfo = null;
-      //[HideInInspector]
-      public GameQuestSavedData.QuestProgress questProgress = null;
-    }
-
-    [SerializeField]
-    [Tooltip("Game quest to follow")]
-    List<FlowerGrabStatus> flowerGrabbedList;
+    /// <summary>
+    /// GameQuestManager does not allow to grab directly the full quest list, so we store the temp today's quests here
+    /// </summary>
+    List<GameQuestInfo> questInfoList;
 
     private void Start()
     {
       // Initialise quest data from quest manager and persistent data system
       GameQuestSavedData questSavedData = PersistentDataSystem.Instance.GetSavedData<GameQuestSavedData>();
-      for (int i = 0; i < flowerGrabbedList.Count; i++)
+      GameQuestSavedData.QuestProgress questProgress = null;
+      questInfoList = new List<GameQuestInfo>();
+      int count = GameQuestManager.Instance.GameQuestCatalog.TodayQuestCount();
+      for (int i = 0; i < count; i++)
       {
-        GameQuestInfo questInfo = GameQuestManager.Instance.GetGameQuest(flowerGrabbedList[i].gameQuestId);
-        flowerGrabbedList[i].questInfo = questInfo;
-        flowerGrabbedList[i].questProgress = questSavedData.GetQuestProgress(questInfo.gameQuestID);
+        GameQuestInfo questInfo = GameQuestManager.Instance.GameQuestCatalog.GetAvailableQuest(i);
+        questProgress = questSavedData.GetQuestProgress(questInfo.gameQuestID);
         // Unlock quest by default
-        if (flowerGrabbedList[i].questProgress.gameQuestStatus == GameQuestSavedData.GameQuestStatus.Locked)
-          flowerGrabbedList[i].questProgress.gameQuestStatus = GameQuestSavedData.GameQuestStatus.WaitingForEnable;
-
+        if (questProgress.gameQuestStatus == GameQuestSavedData.GameQuestStatus.Locked)
+          questProgress.gameQuestStatus = GameQuestSavedData.GameQuestStatus.WaitingForEnable;
+        questInfoList.Add(questInfo);
       }
-      // Ensure data is saved right away to be available for other systems
-      //PersistentDataSystem.Instance.SaveData<GameQuestSavedData>();
     }
 
     private void OnEnable()
@@ -59,29 +48,23 @@ namespace FredericRP.GameQuest
       questLaunched.Delete<GameQuestInfo, GameQuestSavedData.QuestProgress>(QuestLaunched);
     }
 
-
     private void QuestLaunched(GameQuestInfo questInfo, GameQuestSavedData.QuestProgress questProgress)
     {
-      Debug.Log("Received quest launched " + questInfo.gameQuestID + " for target id " + questInfo.targetId);
-      FlowerGrabStatus status = flowerGrabbedList.Find(item => item.gameQuestId == questInfo.gameQuestID);
-      if (status != null)
-      {
-        Debug.Log("Received quest launched for flower id " + questInfo.targetId);
-        status.questProgress.currentProgress = 0;
-      }
+      questProgress.currentProgress = 0;
     }
 
     void FlowerGrabbed(int id)
     {
-      FlowerGrabStatus status = flowerGrabbedList.Find(item => item.questInfo.targetId == id);
-      if (status != null)
+      GameQuestInfo questInfo = questInfoList.Find(item => item.targetId == id);
+      //Debug.Log("FlowerGrabbed " + id + " -> quest " + questInfo);
+      if (questInfo != null && questInfo.runtimeQuestProgress?.gameQuestStatus == GameQuestSavedData.GameQuestStatus.InProgress)
       {
-        status.totalAmount++;
-        status.questProgress.currentProgress++;
-        if (status.questProgress.currentProgress >= status.questInfo.target)
+        questInfo.runtimeQuestProgress.currentProgress++;
+        //Debug.Log("FlowerGrabbed " + id + " -> progress " + questInfo.runtimeQuestProgress.currentProgress + " / " + questInfo.target);
+        if (questInfo.runtimeQuestProgress.currentProgress >= questInfo.target)
         {
-          status.questProgress.currentProgress = status.questInfo.target;
-          GameQuestManager.Instance.CompleteGameQuest(status.questInfo, status.questProgress);
+          questInfo.runtimeQuestProgress.currentProgress = questInfo.target;
+          GameQuestManager.Instance.ValidateGameQuest(questInfo, questInfo.runtimeQuestProgress);
         }
       }
     }

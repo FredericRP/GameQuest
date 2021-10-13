@@ -127,3 +127,21 @@ MonoBehaviour:
       launchMode: 0
       gameQuestStatus: 0
       currentProgress: 0
+  - gameQuestId: 15 blue flowers
+    totalAmount: 0
+    questInfo:
+      gameQuestID: 
+      localizationId: 
+      month: 0
+      dayInMonth: 0
+      year: 0
+      duration: 0
+      target: 0
+      targetId: 0
+      gameQuestRewardList: []
+    questProgress:
+      gameQuestId: 
+      launchDate: 
+      launchMode: 0
+      gameQuestStatus: 0
+      currentProgress: 0

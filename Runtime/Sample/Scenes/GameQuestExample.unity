@@ -406,10 +406,35 @@ MonoBehaviour:
   classToLoad:
   - FredericRP.GameQuest.GameQuestSavedData
   - FredericRP.PlayerCurrency.PlayerCurrencyData
-  savedDataList: []
+  savedDataList:
+  - id: 0
+  - id: 1
   debug: 1
   references:
     version: 1
+    00000000:
+      type: {class: GameQuestSavedData, ns: FredericRP.GameQuest, asm: FredericRP.GameQuest.Runtime}
+      data:
+        dataName: GameQuestSavedData
+        dataVersion: v0
+        questProgressList:
+        - gameQuestId: 5 purple flowers
+          launchDate: 
+          launchMode: 1
+          gameQuestStatus: 1
+          currentProgress: 0
+        - gameQuestId: 10 blue flowers
+          launchDate: 
+          launchMode: 1
+          gameQuestStatus: 1
+          currentProgress: 0
+        lastCheckDate: 
+    00000001:
+      type: {class: PlayerCurrencyData, ns: FredericRP.PlayerCurrency, asm: FredericRP.PlayerCurrency.Runtime}
+      data:
+        dataName: SavedData
+        dataVersion: v0
+        currencyList: []
 --- !u!4 &572218997
 Transform:
   m_ObjectHideFlags: 0

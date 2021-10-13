@@ -1,12 +1,12 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
-using FredericRP.PersistentData;
-using System.Globalization;
+﻿using FredericRP.PersistentData;
 using System;
+using System.Collections.Generic;
+using System.Globalization;
+using UnityEngine;
 
 namespace FredericRP.GameQuest
 {
-  [System.Serializable]
+  [Serializable]
   public class GameQuestSavedData : SavedData
   {
     public enum LaunchMode { Immediate, OnUserAction };
@@ -23,7 +23,7 @@ namespace FredericRP.GameQuest
     static CultureInfo dateTimeProvider = CultureInfo.InvariantCulture;
 
     [System.Serializable]
-    public class QuestProgress
+    public class QuestProgress : IEquatable<QuestProgress>
     {
       public string gameQuestId;
       [SerializeField]
@@ -48,7 +48,13 @@ namespace FredericRP.GameQuest
       {
         gameQuestId = _gameQuestID;
         launchMode = LaunchMode.Immediate;
+        LaunchDate = DateTime.Now;
         gameQuestStatus = _gameQuestStatus;
+      }
+
+      public bool Equals(QuestProgress other)
+      {
+        return other.gameQuestId.Equals(gameQuestId);
       }
     }
 
@@ -59,7 +65,7 @@ namespace FredericRP.GameQuest
     List<QuestProgress> questProgressList = new List<QuestProgress>();
     [SerializeField]
     protected string lastCheckDate;
-    public System.DateTime LastCheckedDate { get { return String.IsNullOrEmpty(lastCheckDate) ? System.DateTime.Now : System.DateTime.ParseExact(lastCheckDate, dateTimeFormat, dateTimeProvider); } set { lastCheckDate = value.ToString(dateTimeFormat); } }
+    public DateTime LastCheckedDate { get { return String.IsNullOrEmpty(lastCheckDate) ? DateTime.Now : DateTime.ParseExact(lastCheckDate, dateTimeFormat, dateTimeProvider); } set { lastCheckDate = value.ToString(dateTimeFormat); } }
     public override void onDataCreated(string dataVersion)
     {
       base.onDataCreated(dataVersion);
@@ -80,21 +86,42 @@ namespace FredericRP.GameQuest
       QuestProgress questProgress = questProgressList.Find(quest => quest.gameQuestId == gameQuestId && (includeLocked ? true : quest.gameQuestStatus != GameQuestStatus.Locked) && (includeComplete ? true : quest.gameQuestStatus != GameQuestStatus.Complete));
       if (questProgress == null && createIfNull)
       {
-        // Ensure the quest does not exist at all if not found with filter and need to be created
-        questProgress = questProgressList.Find(quest => quest.gameQuestId == gameQuestId);
-        if (questProgress == null)
-        {
-          questProgress = new QuestProgress(gameQuestId, GameQuestStatus.Locked);
-          SetQuestProgress(questProgress);
-        }
+        questProgress = new QuestProgress(gameQuestId, GameQuestStatus.Locked);
+        questProgress = SetQuestProgress(questProgress);
       }
       return questProgress;
     }
 
-    public void SetQuestProgress(QuestProgress questProgress)
+    /// <summary>
+    /// Add the progress to the saved data list, or copy data in the existing one and returns it to keep only one reference
+    /// </summary>
+    /// <param name="questProgress"></param>
+    /// <returns></returns>
+    public QuestProgress SetQuestProgress(QuestProgress questProgress)
     {
       if (!questProgressList.Contains(questProgress))
+      {
         questProgressList.Add(questProgress);
+        return questProgress;
+      }
+      // Here, that means that we can have a questProgress with the same game quest id but not the same data in it (two created objects, can happen with serialization)
+      QuestProgress existingQuestProgress = questProgressList.Find(progress => progress.gameQuestId.Equals(questProgress.gameQuestId));
+      // Copy data
+      existingQuestProgress.currentProgress = questProgress.currentProgress;
+      existingQuestProgress.gameQuestStatus = questProgress.gameQuestStatus;
+      existingQuestProgress.LaunchDate = questProgress.LaunchDate;
+      existingQuestProgress.launchMode = questProgress.launchMode;
+      return existingQuestProgress;
+    }
+
+    public override void onPlayerDataLoaded()
+    {
+      base.onPlayerDataLoaded();
+      // Link quest progress and quest info for faster usage in the game
+      for (int i = 0; i < questProgressList.Count; i++)
+      {
+        GameQuestManager.Instance.GameQuestCatalog.GetQuest(questProgressList[i].gameQuestId).runtimeQuestProgress = questProgressList[i];
+      }
     }
   }
 }

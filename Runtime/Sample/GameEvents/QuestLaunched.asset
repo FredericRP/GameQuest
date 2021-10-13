@@ -12,3 +12,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58e2978ef8b80bb4cbffeb651b2ab406, type: 3}
   m_Name: QuestLaunched
   m_EditorClassIdentifier: 
+  firstParameter:
+    typedValue:
+      gameQuestID: 
+      localizationId: 
+      month: -1
+      dayInMonth: -1
+      year: 2021
+      duration: 0
+      target: 5
+      targetId: 0
+      gameQuestRewardList: []
+      runtimeQuestProgress:
+        gameQuestId: 
+        launchDate: 
+        launchMode: 0
+        gameQuestStatus: 0
+        currentProgress: 0
+    typedReference: {fileID: 0}
+    valueType: 1
+  secondParameter:
+    typedValue:
+      gameQuestId: 
+      launchDate: 
+      launchMode: 0
+      gameQuestStatus: 0
+      currentProgress: 0
+    typedReference: {fileID: 0}
+    valueType: 1

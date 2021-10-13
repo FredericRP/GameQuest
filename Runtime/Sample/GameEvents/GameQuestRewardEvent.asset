@@ -12,3 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84c5cd85b86667341be4c816e1a26f18, type: 3}
   m_Name: GameQuestRewardEvent
   m_EditorClassIdentifier: FredericRP.GameQuest.Runtime:FredericRP.GameQuest:GameQuestManager/GameQuestRewardEvent
+  parameter:
+    typedValue: {fileID: 11400000, guid: 7b85e41977afda8439d8d0d6bd025098, type: 2}
+    typedReference: {fileID: 0}
+    valueType: 0

@@ -3,7 +3,8 @@
     "rootNamespace": "",
     "references": [
         "FredericRP.GameQuest.Runtime",
-        "FredericRP.PersistentDataSystem.Editor"
+        "FredericRP.PersistentDataSystem.Editor",
+        "FredericRP.GameEventHandler.Editor"
     ],
     "includePlatforms": [
         "Editor"
