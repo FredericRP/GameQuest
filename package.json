@@ -1,22 +1,26 @@
 {
-  "name": "com.fredericrp.gamequest",
-  "version": "1.0.0",
-  "displayName": "FRP Game Quest",
-  "description": "GameQuest provides an easy way to create quests for a game, and the management of them.",
-  "unity": "2020.1",
-  "unityRelease": "0f1",
-  "dependencies": {
-	  "com.fredericrp.singleton": "1.3.0",
-	  "com.fredericrp.persistentdatasystem": "1.0.0",
-	  "com.fredericrp.eventhandler": "1.3.0",
-	  "com.unity.localization": "1.0.0-pre.10"
- },
- "keywords": [
-    "standard assets"
-  ],
-  "author": {
-    "name": "FredericRP",
-    "email": "unity@FredericRP.com",
-    "url": "https://FredericRP.com"
-  }
+    "name": "com.fredericrp.gamequest",
+    "version": "1.0.0",
+    "displayName": "FRP Game Quest",
+    "description": "GameQuest provides an easy way to create quests for a game, and the management of them.",
+    "unity": "2020.1",
+    "keywords": [
+        "standard assets"
+    ],
+    "dependencies": {
+        "com.fredericrp.singleton": "1.3.1",
+        "com.fredericrp.persistentdatasystem": "1.0.1",
+        "com.fredericrp.eventhandler": "1.5.2",
+        "com.fredericrp.popups": "1.3.0",
+        "com.fredericrp.stringdatalist": "1.0.1",
+        "com.fredericrp.playercurrency": "1.0.0",
+        "com.unity.textmeshpro": "3.0.6",
+        "com.fredericrp.simplelocalization": "1.0.0",
+        "com.fredericrp.easyloading": "1.0.3"
+    },
+    "author": {
+        "name": "FredericRP",
+        "email": "unity@FredericRP.com",
+        "url": "https://FredericRP.com"
+    }
 }
