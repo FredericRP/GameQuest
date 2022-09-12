@@ -30,7 +30,7 @@ MonoBehaviour:
         gameQuestStatus: 0
         currentProgress: 0
     typedReference: {fileID: 0}
-    valueType: 1
+    valueType: 0
   secondParameter:
     typedValue:
       gameQuestId: 
@@ -39,4 +39,4 @@ MonoBehaviour:
       gameQuestStatus: 0
       currentProgress: 0
     typedReference: {fileID: 0}
-    valueType: 1
+    valueType: 0

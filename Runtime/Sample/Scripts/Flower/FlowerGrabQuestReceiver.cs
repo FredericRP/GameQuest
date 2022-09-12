@@ -55,16 +55,24 @@ namespace FredericRP.GameQuest
 
     void FlowerGrabbed(int id)
     {
-      GameQuestInfo questInfo = questInfoList.Find(item => item.targetId == id);
-      //Debug.Log("FlowerGrabbed " + id + " -> quest " + questInfo);
-      if (questInfo != null && questInfo.runtimeQuestProgress?.gameQuestStatus == GameQuestSavedData.GameQuestStatus.InProgress)
+      Debug.Log("FlowerGrabbed " + id);
+      List<GameQuestInfo> questInfoFilteredList = questInfoList?.FindAll(item => item.targetId == id);
+
+      if (questInfoFilteredList == null)
+        return;
+      for (int i = 0; i < questInfoFilteredList.Count; i++)
       {
-        questInfo.runtimeQuestProgress.currentProgress++;
-        //Debug.Log("FlowerGrabbed " + id + " -> progress " + questInfo.runtimeQuestProgress.currentProgress + " / " + questInfo.target);
-        if (questInfo.runtimeQuestProgress.currentProgress >= questInfo.target)
+        GameQuestInfo questInfo = questInfoFilteredList[i];
+        Debug.Log("FlowerGrabbed " + id + " -> quest " + questInfo);
+        if (questInfo != null && questInfo.runtimeQuestProgress?.gameQuestStatus == GameQuestSavedData.GameQuestStatus.InProgress)
         {
-          questInfo.runtimeQuestProgress.currentProgress = questInfo.target;
-          GameQuestManager.Instance.ValidateGameQuest(questInfo, questInfo.runtimeQuestProgress);
+          questInfo.runtimeQuestProgress.currentProgress++;
+          Debug.Log("FlowerGrabbed " + id + " -> progress " + questInfo.runtimeQuestProgress.currentProgress + " / " + questInfo.target);
+          if (questInfo.runtimeQuestProgress.currentProgress >= questInfo.target)
+          {
+            questInfo.runtimeQuestProgress.currentProgress = questInfo.target;
+            GameQuestManager.Instance.ValidateGameQuest(questInfo, questInfo.runtimeQuestProgress);
+          }
         }
       }
     }

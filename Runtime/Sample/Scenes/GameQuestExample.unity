@@ -420,7 +420,7 @@ MonoBehaviour:
         questProgressList:
         - gameQuestId: 5 purple flowers
           launchDate: 
-          launchMode: 1
+          launchMode: 0
           gameQuestStatus: 1
           currentProgress: 0
         - gameQuestId: 10 blue flowers
@@ -434,7 +434,9 @@ MonoBehaviour:
       data:
         dataName: SavedData
         dataVersion: v0
-        currencyList: []
+        currencyList:
+        - money: Seed
+          count: 0
 --- !u!4 &572218997
 Transform:
   m_ObjectHideFlags: 0

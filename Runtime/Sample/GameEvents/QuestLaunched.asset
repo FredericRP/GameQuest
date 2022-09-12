@@ -14,29 +14,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   firstParameter:
     typedValue:
-      gameQuestID: 
-      localizationId: 
-      month: -1
-      dayInMonth: -1
-      year: 2021
-      duration: 0
-      target: 5
-      targetId: 0
-      gameQuestRewardList: []
+      gameQuestID: 15 blue flowers
+      localizationId: 15 blue flowers
+      month: 0
+      dayInMonth: 0
+      year: 0
+      duration: 600
+      target: 15
+      targetId: 1
+      gameQuestRewardList:
+      - {fileID: 11400000, guid: e55a2d1afb623294ea8bd91ab830e05b, type: 2}
       runtimeQuestProgress:
-        gameQuestId: 
-        launchDate: 
+        gameQuestId: 15 blue flowers
+        launchDate: 23/12/2021 16:13
         launchMode: 0
-        gameQuestStatus: 0
+        gameQuestStatus: 1
         currentProgress: 0
     typedReference: {fileID: 0}
-    valueType: 1
+    valueType: 0
   secondParameter:
     typedValue:
-      gameQuestId: 
-      launchDate: 
+      gameQuestId: 15 blue flowers
+      launchDate: 23/12/2021 18:07
       launchMode: 0
-      gameQuestStatus: 0
+      gameQuestStatus: 2
       currentProgress: 0
     typedReference: {fileID: 0}
-    valueType: 1
+    valueType: 0

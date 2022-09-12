@@ -153,7 +153,6 @@ namespace FredericRP.GameQuest
       EditorGUI.EndProperty();
 
     }
-    // */
     public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
     {
       float height = EditorGUIUtility.singleLineHeight * 5;
