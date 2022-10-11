@@ -1,16 +1,19 @@
 using FredericRP.EventManagement;
+using FredericRP.ObjectPooling;
+using FredericRP.StringDataList;
 using UnityEngine;
 
 namespace FredericRP.GameQuest
 {
   public class FlowerSpawner : MonoBehaviour
   {
-    [Header("Links")]
-    [SerializeField]
-    RectTransform flowerParent;
     [Header("Spawn config")]
     [SerializeField]
-    Flower flowerPrefab;
+    [Select("PoolId")]
+    string ObjectPoolId;
+    [SerializeField]
+    [Select("ObjectId")]
+    string flowerPrefabName;
     [SerializeField]
     int startBurst = 10;
     [SerializeField]
@@ -61,7 +64,7 @@ namespace FredericRP.GameQuest
 
     void SpawnFlower()
     {
-      Flower flower = Instantiate<Flower>(flowerPrefab, flowerParent);
+      Flower flower = ObjectPool.GetObjectPool(ObjectPoolId).GetFromPool<Flower>(flowerPrefabName);
       // spawn on the side of the screen
       flower.GetComponent<RectTransform>().anchoredPosition = Vector2.zero + Vector2.up * Random.Range(-spread, spread);
       // set color and target position

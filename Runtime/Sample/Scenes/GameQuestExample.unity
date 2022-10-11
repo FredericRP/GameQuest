@@ -290,6 +290,143 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 329953061}
   m_CullTransparentMesh: 1
+--- !u!1001 &456091000
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1708995700053556, guid: 1103f879e83624a4fbe70928839634e8, type: 3}
+      propertyPath: m_Name
+      value: PersistentDataSystem
+      objectReference: {fileID: 0}
+    - target: {fileID: 4513226703386878, guid: 1103f879e83624a4fbe70928839634e8, type: 3}
+      propertyPath: m_RootOrder
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4513226703386878, guid: 1103f879e83624a4fbe70928839634e8, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4513226703386878, guid: 1103f879e83624a4fbe70928839634e8, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4513226703386878, guid: 1103f879e83624a4fbe70928839634e8, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4513226703386878, guid: 1103f879e83624a4fbe70928839634e8, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4513226703386878, guid: 1103f879e83624a4fbe70928839634e8, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4513226703386878, guid: 1103f879e83624a4fbe70928839634e8, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4513226703386878, guid: 1103f879e83624a4fbe70928839634e8, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4513226703386878, guid: 1103f879e83624a4fbe70928839634e8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4513226703386878, guid: 1103f879e83624a4fbe70928839634e8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4513226703386878, guid: 1103f879e83624a4fbe70928839634e8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114425241848838648, guid: 1103f879e83624a4fbe70928839634e8,
+        type: 3}
+      propertyPath: debug
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114425241848838648, guid: 1103f879e83624a4fbe70928839634e8,
+        type: 3}
+      propertyPath: awakeLoadMode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114425241848838648, guid: 1103f879e83624a4fbe70928839634e8,
+        type: 3}
+      propertyPath: savedDataList.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114425241848838648, guid: 1103f879e83624a4fbe70928839634e8,
+        type: 3}
+      propertyPath: savedDataList.Array.data[0]
+      value: FredericRP.GameQuest.Runtime FredericRP.GameQuest.GameQuestSavedData
+      objectReference: {fileID: 0}
+    - target: {fileID: 114425241848838648, guid: 1103f879e83624a4fbe70928839634e8,
+        type: 3}
+      propertyPath: specificClassList.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114425241848838648, guid: 1103f879e83624a4fbe70928839634e8,
+        type: 3}
+      propertyPath: specificClassList.Array.data[0]
+      value: FredericRP.GameQuest.GameQuestSavedData
+      objectReference: {fileID: 0}
+    - target: {fileID: 114425241848838648, guid: 1103f879e83624a4fbe70928839634e8,
+        type: 3}
+      propertyPath: savedDataList.Array.data[0].data
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114425241848838648, guid: 1103f879e83624a4fbe70928839634e8,
+        type: 3}
+      propertyPath: savedDataList.Array.data[0].dataName
+      value: GameQuestSavedData
+      objectReference: {fileID: 0}
+    - target: {fileID: 114425241848838648, guid: 1103f879e83624a4fbe70928839634e8,
+        type: 3}
+      propertyPath: savedDataList.Array.data[0].dataVersion
+      value: v0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114425241848838648, guid: 1103f879e83624a4fbe70928839634e8,
+        type: 3}
+      propertyPath: savedDataList.Array.data[0].lastCheckDate
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114425241848838648, guid: 1103f879e83624a4fbe70928839634e8,
+        type: 3}
+      propertyPath: savedDataList.Array.data[0].questProgressList.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114425241848838648, guid: 1103f879e83624a4fbe70928839634e8,
+        type: 3}
+      propertyPath: savedDataList.Array.data[0].questProgressList.Array.data[0].launchDate
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114425241848838648, guid: 1103f879e83624a4fbe70928839634e8,
+        type: 3}
+      propertyPath: savedDataList.Array.data[0].questProgressList.Array.data[0].launchMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114425241848838648, guid: 1103f879e83624a4fbe70928839634e8,
+        type: 3}
+      propertyPath: savedDataList.Array.data[0].questProgressList.Array.data[0].gameQuestId
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114425241848838648, guid: 1103f879e83624a4fbe70928839634e8,
+        type: 3}
+      propertyPath: savedDataList.Array.data[0].questProgressList.Array.data[0].currentProgress
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114425241848838648, guid: 1103f879e83624a4fbe70928839634e8,
+        type: 3}
+      propertyPath: savedDataList.Array.data[0].questProgressList.Array.data[0].gameQuestStatus
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 1103f879e83624a4fbe70928839634e8, type: 3}
 --- !u!1 &502310240
 GameObject:
   m_ObjectHideFlags: 0
@@ -369,88 +506,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 502310240}
   m_CullTransparentMesh: 0
---- !u!1 &572218995
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 572218997}
-  - component: {fileID: 572218996}
-  m_Layer: 0
-  m_Name: PersistentDataSystem
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &572218996
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 572218995}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 814f02c0ee53a4246a3177de0a07e7c7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dataVersion: v0
-  versionImporters: []
-  autoSave: 1
-  awakeLoadMode: 1
-  saveMode: 1
-  classToLoad:
-  - FredericRP.GameQuest.GameQuestSavedData
-  - FredericRP.PlayerCurrency.PlayerCurrencyData
-  savedDataList:
-  - id: 0
-  - id: 1
-  debug: 1
-  references:
-    version: 1
-    00000000:
-      type: {class: GameQuestSavedData, ns: FredericRP.GameQuest, asm: FredericRP.GameQuest.Runtime}
-      data:
-        dataName: GameQuestSavedData
-        dataVersion: v0
-        questProgressList:
-        - gameQuestId: 5 purple flowers
-          launchDate: 
-          launchMode: 0
-          gameQuestStatus: 1
-          currentProgress: 0
-        - gameQuestId: 10 blue flowers
-          launchDate: 
-          launchMode: 1
-          gameQuestStatus: 1
-          currentProgress: 0
-        lastCheckDate: 
-    00000001:
-      type: {class: PlayerCurrencyData, ns: FredericRP.PlayerCurrency, asm: FredericRP.PlayerCurrency.Runtime}
-      data:
-        dataName: SavedData
-        dataVersion: v0
-        currencyList:
-        - money: Seed
-          count: 0
---- !u!4 &572218997
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 572218995}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.642745, y: 113.02051, z: 52.65368}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 7
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &576934343
 GameObject:
   m_ObjectHideFlags: 0
@@ -1512,10 +1567,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1782501656, guid: 1b06fa8a353580e4d8b5b0ef307af959, type: 3}
-      propertyPath: flowerParent
-      value: 
-      objectReference: {fileID: 1707245690}
     - target: {fileID: 1972155048146868, guid: 1b06fa8a353580e4d8b5b0ef307af959, type: 3}
       propertyPath: m_Name
       value: GameQuestManager
@@ -2181,3 +2232,77 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 28fa37ef0247ad345b2e5204450f9f91, type: 3}
+--- !u!1001 &8219391400593286957
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 8214945583115355402, guid: 7f958cff5e1058e419049b677501b96e,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8214945583115355402, guid: 7f958cff5e1058e419049b677501b96e,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8214945583115355402, guid: 7f958cff5e1058e419049b677501b96e,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8214945583115355402, guid: 7f958cff5e1058e419049b677501b96e,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8214945583115355402, guid: 7f958cff5e1058e419049b677501b96e,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8214945583115355402, guid: 7f958cff5e1058e419049b677501b96e,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8214945583115355402, guid: 7f958cff5e1058e419049b677501b96e,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8214945583115355402, guid: 7f958cff5e1058e419049b677501b96e,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8214945583115355402, guid: 7f958cff5e1058e419049b677501b96e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8214945583115355402, guid: 7f958cff5e1058e419049b677501b96e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8214945583115355402, guid: 7f958cff5e1058e419049b677501b96e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8220507317542401150, guid: 7f958cff5e1058e419049b677501b96e,
+        type: 3}
+      propertyPath: m_Name
+      value: ObjectPool
+      objectReference: {fileID: 0}
+    - target: {fileID: 8323813702421849400, guid: 7f958cff5e1058e419049b677501b96e,
+        type: 3}
+      propertyPath: poolObjectList.Array.data[0].defaultParent
+      value: 
+      objectReference: {fileID: 1707245690}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 7f958cff5e1058e419049b677501b96e, type: 3}

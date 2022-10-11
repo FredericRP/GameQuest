@@ -8,15 +8,16 @@
         "standard assets"
     ],
     "dependencies": {
-        "com.fredericrp.singleton": "1.3.2",
-        "com.fredericrp.persistentdatasystem": "1.0.2",
+        "com.fredericrp.easyloading": "1.0.4",
         "com.fredericrp.eventhandler": "1.5.3",
-        "com.fredericrp.popups": "1.3.2",
-        "com.fredericrp.stringdatalist": "1.0.2",
+        "com.fredericrp.objectpool": "1.3.1",
+        "com.fredericrp.persistentdatasystem": "1.0.5",
         "com.fredericrp.playercurrency": "1.0.1",
-        "com.unity.textmeshpro": "3.0.6",
+        "com.fredericrp.popups": "1.3.2",
         "com.fredericrp.simplelocalization": "1.0.1",
-        "com.fredericrp.easyloading": "1.0.4"
+        "com.fredericrp.singleton": "1.3.2",
+        "com.fredericrp.stringdatalist": "1.0.3",
+        "com.unity.textmeshpro": "3.0.6"
     },
     "author": {
         "name": "FredericRP",

@@ -68,9 +68,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4175610bfaaebdf4989fc70f6911ee10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  flowerParent: {fileID: 0}
-  flowerPrefab: {fileID: 8052742656950354982, guid: 5f287a2b5f2bcfa41bb5bd6caf739281,
-    type: 3}
+  ObjectPoolId: flowers
+  flowerPrefabName: flower
   startBurst: 6
   intervalBetwenSpawn: 0.2
   spread: 350
@@ -90,58 +89,3 @@ MonoBehaviour:
   flowerGrabEvent: {fileID: 11400000, guid: c9f97b3350751794099b3e22e71fb58b, type: 2}
   questLaunched: {fileID: 11400000, guid: fc60cb4d068f44d4f903d86674fcbbfe, type: 2}
   questValidate: {fileID: 11400000, guid: d093e54e97f9dfc4199f6edcb12f0195, type: 2}
-  flowerGrabbedList:
-  - gameQuestId: 10 blue flowers
-    totalAmount: 0
-    questInfo:
-      gameQuestID: 
-      localizationId: 
-      month: 0
-      dayInMonth: 0
-      year: 0
-      duration: 0
-      target: 0
-      targetId: 0
-      gameQuestRewardList: []
-    questProgress:
-      gameQuestId: 
-      launchDate: 
-      launchMode: 0
-      gameQuestStatus: 0
-      currentProgress: 0
-  - gameQuestId: 5 purple flowers
-    totalAmount: 0
-    questInfo:
-      gameQuestID: 
-      localizationId: 
-      month: 0
-      dayInMonth: 0
-      year: 0
-      duration: 0
-      target: 0
-      targetId: 0
-      gameQuestRewardList: []
-    questProgress:
-      gameQuestId: 
-      launchDate: 
-      launchMode: 0
-      gameQuestStatus: 0
-      currentProgress: 0
-  - gameQuestId: 15 blue flowers
-    totalAmount: 0
-    questInfo:
-      gameQuestID: 
-      localizationId: 
-      month: 0
-      dayInMonth: 0
-      year: 0
-      duration: 0
-      target: 0
-      targetId: 0
-      gameQuestRewardList: []
-    questProgress:
-      gameQuestId: 
-      launchDate: 
-      launchMode: 0
-      gameQuestStatus: 0
-      currentProgress: 0

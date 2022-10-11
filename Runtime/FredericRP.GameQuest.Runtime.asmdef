@@ -2,15 +2,16 @@
     "name": "FredericRP.GameQuest.Runtime",
     "rootNamespace": "",
     "references": [
-        "FredericRP.Singleton.Runtime",
-        "FredericRP.PersistentDataSystem.Runtime",
+        "FredericRP.EasyLoading.Runtime",
         "FredericRP.GameEventHandler.Runtime",
-        "FredericRP.Popups.Runtime",
-        "FredericRP.StringDataList.Runtime",
+        "FredericRP.ObjectPool.Runtime",
+        "FredericRP.PersistentDataSystem.Runtime",
         "FredericRP.PlayerCurrency.Runtime",
-        "Unity.TextMeshPro",
+        "FredericRP.Popups.Runtime",
         "FredericRP.SimpleLocalization.Runtime",
-        "FredericRP.EasyLoading.Runtime"
+        "FredericRP.Singleton.Runtime",
+        "FredericRP.StringDataList.Runtime",
+        "Unity.TextMeshPro"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
