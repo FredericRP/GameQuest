@@ -1,3 +1,5 @@
+[![openupm](https://img.shields.io/npm/v/com.fredericrp.gamequest?label=openupm&registry_uri=https://package.openupm.com)](https://openupm.com/packages/com.fredericrp.gamequest/)
+
 # Game Quest
 
 GameQuest provides an easy way to create quests for a game, and the management of them.
