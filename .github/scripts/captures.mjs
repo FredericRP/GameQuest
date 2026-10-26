@@ -35,14 +35,15 @@ const shot = async (name, wait) => {
 
 await shot('01-demarrage', 20000);
 await shot('02-menu', 15000);
-// Quelques entrées clavier et souris pour quitter le menu et faire voler le drone.
+// Quelques entrées génériques (clic, Entrée, Espace, flèche haut), à adapter au projet.
 await canvas.click();
 for (const key of ['Enter', 'Space']) await page.keyboard.press(key);
 await shot('03-jeu', 8000);
+await canvas.click({ position: { x: 300, y: 250 } });
 await page.keyboard.down('ArrowUp');
-await shot('04-vol', 4000);
+await shot('04-action', 4000);
 await page.keyboard.up('ArrowUp');
-await shot('05-vol', 4000);
+await shot('05-action', 4000);
 
 await browser.close();
 server.close();
