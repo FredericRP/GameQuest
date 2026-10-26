@@ -1,0 +1,81 @@
+# Build WebGL de l'exemple du package via GameCI (dans un projet Unity hôte généré),
+# captures d'écran automatiques et publication de la version jouable sur GitHub Pages.
+# Secrets requis : UNITY_LICENSE (contenu du fichier Unity_lic.ulf), UNITY_EMAIL, UNITY_PASSWORD.
+name: WebGL
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [primary]
+  pull_request:
+
+concurrency:
+  group: webgl-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  # Le package demande Unity 2020.1 : on prend la dernière 2020 LTS disponible chez GameCI.
+  UNITY_VERSION: 2020.3.48f1
+  HOST: webgl-host
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Projet Unity hôte
+        run: |
+          node .github/scripts/host-project.mjs . "$HOST" "$UNITY_VERSION"
+          cp .github/webgl/CIWebGLSettings.cs "$HOST/Assets/Editor/"
+
+      - uses: actions/cache@v4
+        with:
+          path: ${{ env.HOST }}/Library
+          key: Library-WebGL-${{ env.UNITY_VERSION }}-${{ hashFiles('package.json') }}
+          restore-keys: Library-WebGL-${{ env.UNITY_VERSION }}-
+
+      - uses: game-ci/unity-builder@v4
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+        with:
+          unityVersion: ${{ env.UNITY_VERSION }}
+          projectPath: ${{ env.HOST }}
+          targetPlatform: WebGL
+          buildName: web
+          allowDirtyBuild: true
+
+      - name: Captures d'écran
+        run: |
+          sudo chown -R "$USER" build
+          npm install --no-save --no-package-lock playwright@1.48.2
+          npx playwright install --with-deps chromium
+          node .github/scripts/captures.mjs build/WebGL/web captures
+          cp -r captures build/WebGL/web/captures
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: captures
+          path: captures
+
+      - if: github.ref == 'refs/heads/primary'
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: build/WebGL/web
+
+  deploy:
+    if: github.ref == 'refs/heads/primary'
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
