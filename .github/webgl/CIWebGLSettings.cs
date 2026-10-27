@@ -14,8 +14,10 @@ static class CIWebGLSettings
   static CIWebGLSettings()
   {
     // A fresh project lacks the TextMesh Pro essentials (default font and settings): import them once.
-    if (File.Exists(TMPEssentials) && !Directory.Exists("Assets/TextMesh Pro"))
-      AssetDatabase.ImportPackage(TMPEssentials, false);
+    // Path.GetFullPath resolves the virtual Packages/ path to the package cache.
+    string essentials = Path.GetFullPath(TMPEssentials);
+    if (File.Exists(essentials) && !Directory.Exists("Assets/TextMesh Pro"))
+      AssetDatabase.ImportPackage(essentials, false);
 
 #if UNITY_2020_1_OR_NEWER
     // GitHub Pages sends no Content-Encoding header: the loader decompresses by itself.
