@@ -51,8 +51,12 @@ jobs:
       - name: Screenshots
         run: |
           sudo chown -R "$USER" build
+          # Install Playwright next to the script: the root package.json is the UPM package, not an npm project.
+          cd .github/scripts
+          echo '{"private": true}' > package.json
           npm install --no-save --no-package-lock playwright@1.48.2
           npx playwright install --with-deps chromium
+          cd "$GITHUB_WORKSPACE"
           node .github/scripts/captures.mjs build/WebGL/web captures
           cp -r captures build/WebGL/web/captures
 
