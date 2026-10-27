@@ -1,5 +1,5 @@
-// Lance le build WebGL dans Chromium headless (rendu logiciel) et prend des captures.
-// Usage : node captures.mjs <dossier du build> <dossier de sortie>
+// Runs the WebGL build in headless Chromium (software rendering) and takes screenshots.
+// Usage: node captures.mjs <build folder> <output folder>
 import { chromium } from 'playwright';
 import { createServer } from 'node:http';
 import { readFile, mkdir } from 'node:fs/promises';
@@ -23,22 +23,22 @@ const server = createServer(async (req, res) => {
 await mkdir(out, { recursive: true });
 const browser = await chromium.launch({ args: ['--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist'] });
 const page = await browser.newPage({ viewport: { width: 960, height: 600 } });
-page.on('console', (m) => console.log('[jeu]', m.text()));
+page.on('console', (m) => console.log('[game]', m.text()));
 await page.goto('http://localhost:8080/');
 
 const canvas = page.locator('canvas').first();
 const shot = async (name, wait) => {
   await page.waitForTimeout(wait);
   await canvas.screenshot({ path: join(out, `${name}.png`) });
-  console.log('capture', name);
+  console.log('screenshot', name);
 };
 
-await shot('01-demarrage', 20000);
+await shot('01-startup', 20000);
 await shot('02-menu', 15000);
-// Quelques entrées génériques (clic, Entrée, Espace, flèche haut), à adapter au projet.
+// A few generic inputs (click, Enter, Space, up arrow), to adapt to the project.
 await canvas.click();
 for (const key of ['Enter', 'Space']) await page.keyboard.press(key);
-await shot('03-jeu', 8000);
+await shot('03-game', 8000);
 await canvas.click({ position: { x: 300, y: 250 } });
 await page.keyboard.down('ArrowUp');
 await shot('04-action', 4000);

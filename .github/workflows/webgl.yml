@@ -1,6 +1,6 @@
-# Build WebGL de l'exemple du package via GameCI (dans un projet Unity hôte généré),
-# captures d'écran automatiques et publication de la version jouable sur GitHub Pages.
-# Secrets requis : UNITY_LICENSE (contenu du fichier Unity_lic.ulf), UNITY_EMAIL, UNITY_PASSWORD.
+# WebGL build of the package sample with GameCI (inside a generated host Unity project),
+# automatic screenshots and publication of the playable build on GitHub Pages.
+# Required secrets: UNITY_LICENSE (content of Unity_lic.ulf), UNITY_EMAIL, UNITY_PASSWORD.
 name: WebGL
 
 on:
@@ -14,7 +14,7 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  # Le package demande Unity 2020.1 : on prend la dernière 2020 LTS disponible chez GameCI.
+  # The package requires Unity 2020.1: use the latest 2020 LTS available on GameCI.
   UNITY_VERSION: 2020.3.48f1
   HOST: webgl-host
 
@@ -25,7 +25,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Projet Unity hôte
+      - name: Host Unity project
         run: |
           node .github/scripts/host-project.mjs . "$HOST" "$UNITY_VERSION"
           cp .github/webgl/CIWebGLSettings.cs "$HOST/Assets/Editor/"
@@ -48,7 +48,7 @@ jobs:
           buildName: web
           allowDirtyBuild: true
 
-      - name: Captures d'écran
+      - name: Screenshots
         run: |
           sudo chown -R "$USER" build
           npm install --no-save --no-package-lock playwright@1.48.2

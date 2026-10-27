@@ -1,5 +1,5 @@
-// Crée un projet Unity hôte autour d'un package UPM pour pouvoir le compiler en WebGL.
-// Usage : node host-project.mjs <dossier du package> <dossier du projet hôte> <version Unity>
+// Creates a host Unity project around a UPM package so it can be built to WebGL.
+// Usage: node host-project.mjs <package folder> <host project folder> <Unity version>
 import { readFileSync, writeFileSync, mkdirSync, cpSync, readdirSync, statSync } from 'node:fs';
 import { join, relative, basename } from 'node:path';
 
@@ -8,14 +8,14 @@ const pkg = JSON.parse(readFileSync(join(pkgDir, 'package.json'), 'utf8'));
 const target = join(hostDir, 'Assets', basename(pkg.name));
 const skip = new Set(['.git', '.github', 'node_modules', 'build', basename(hostDir)]);
 
-// Copie du package dans Assets ; les dossiers Samples~ sont renommés pour être importés.
+// Copy the package into Assets; Samples~ folders are renamed so Unity imports them.
 mkdirSync(target, { recursive: true });
 for (const entry of readdirSync(pkgDir)) {
   if (skip.has(entry)) continue;
   cpSync(join(pkgDir, entry), join(target, entry === 'Samples~' ? 'Samples' : entry), { recursive: true });
 }
 
-// Dépendances du package + modules intégrés courants ; les paquets non Unity viennent d'OpenUPM.
+// Package dependencies + common built-in modules; non-Unity packages come from OpenUPM.
 const modules = ['ai', 'animation', 'audio', 'imageconversion', 'imgui', 'jsonserialize', 'particlesystem',
   'physics', 'physics2d', 'screencapture', 'tilemap', 'ui', 'uielements', 'unitywebrequest', 'video'];
 const dependencies = { 'com.unity.ugui': '1.0.0', ...pkg.dependencies };
@@ -31,7 +31,7 @@ writeFileSync(join(hostDir, 'Packages', 'manifest.json'), JSON.stringify(manifes
 mkdirSync(join(hostDir, 'ProjectSettings'), { recursive: true });
 writeFileSync(join(hostDir, 'ProjectSettings', 'ProjectVersion.txt'), `m_EditorVersion: ${unityVersion}\n`);
 
-// Toutes les scènes du package (en pratique celles des exemples) sont ajoutées au build.
+// Every scene of the package (in practice the sample ones) is added to the build.
 const scenes = [];
 const walk = (dir) => readdirSync(dir).forEach((entry) => {
   const path = join(dir, entry);
@@ -41,4 +41,4 @@ const walk = (dir) => readdirSync(dir).forEach((entry) => {
 walk(target);
 mkdirSync(join(hostDir, 'Assets', 'Editor'), { recursive: true });
 writeFileSync(join(hostDir, 'Assets', 'Editor', 'webgl-scenes.txt'), scenes.join('\n'));
-console.log('Scènes :', scenes);
+console.log('Scenes:', scenes);
