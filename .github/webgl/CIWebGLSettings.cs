@@ -9,9 +9,14 @@ using UnityEditor;
 static class CIWebGLSettings
 {
   const string ScenesFile = "Assets/Editor/webgl-scenes.txt";
+  const string TMPEssentials = "Packages/com.unity.textmeshpro/Package Resources/TMP Essential Resources.unitypackage";
 
   static CIWebGLSettings()
   {
+    // A fresh project lacks the TextMesh Pro essentials (default font and settings): import them once.
+    if (File.Exists(TMPEssentials) && !Directory.Exists("Assets/TextMesh Pro"))
+      AssetDatabase.ImportPackage(TMPEssentials, false);
+
 #if UNITY_2020_1_OR_NEWER
     // GitHub Pages sends no Content-Encoding header: the loader decompresses by itself.
     PlayerSettings.WebGL.compressionFormat = WebGLCompressionFormat.Gzip;
