@@ -30,6 +30,22 @@ jobs:
           node .github/scripts/host-project.mjs . "$HOST" "$UNITY_VERSION"
           cp .github/webgl/CIWebGLSettings.cs "$HOST/Assets/Editor/"
 
+      - name: TextMesh Pro essentials
+        run: |
+          # A generated project lacks the TMP essentials (default font, TMP Settings): unpack them from the package.
+          version=$(node -p "require('./package.json').dependencies?.['com.unity.textmeshpro'] ?? ''")
+          [ -z "$version" ] && exit 0
+          tmp=$(mktemp -d)
+          curl -sfL "https://download.packages.unity.com/com.unity.textmeshpro/-/com.unity.textmeshpro-$version.tgz" | tar xz -C "$tmp"
+          mkdir "$tmp/essentials"
+          tar xzf "$tmp/package/Package Resources/TMP Essential Resources.unitypackage" -C "$tmp/essentials"
+          for dir in "$tmp"/essentials/*/; do
+            path="$HOST/$(head -n1 "$dir/pathname" | tr -d '\r')"
+            if [ -f "$dir/asset" ]; then mkdir -p "$(dirname "$path")"; cp "$dir/asset" "$path"; else mkdir -p "$path"; fi
+            cp "$dir/asset.meta" "$path.meta"
+          done
+          ls "$HOST/Assets/TextMesh Pro/Resources"
+
       - uses: actions/cache@v4
         with:
           path: ${{ env.HOST }}/Library

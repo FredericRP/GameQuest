@@ -9,17 +9,9 @@ using UnityEditor;
 static class CIWebGLSettings
 {
   const string ScenesFile = "Assets/Editor/webgl-scenes.txt";
-  const string TMPEssentials = "Packages/com.unity.textmeshpro/Package Resources/TMP Essential Resources.unitypackage";
 
   static CIWebGLSettings()
   {
-    // A fresh project lacks the TextMesh Pro essentials (default font and settings): import them once.
-    // Path.GetFullPath resolves the virtual Packages/ path to the package cache.
-    string essentials = Path.GetFullPath(TMPEssentials);
-    UnityEngine.Debug.Log($"[CI] TMP essentials: {essentials} (found: {File.Exists(essentials)})");
-    if (File.Exists(essentials) && !Directory.Exists("Assets/TextMesh Pro"))
-      AssetDatabase.ImportPackage(essentials, false);
-
     // Full exception messages and stack traces in the browser console, to debug the screenshots run.
     PlayerSettings.WebGL.exceptionSupport = WebGLExceptionSupport.FullWithStacktrace;
 
