@@ -75,6 +75,8 @@ jobs:
           cd "$GITHUB_WORKSPACE"
           node .github/scripts/captures.mjs build/WebGL/web captures
           cp -r captures build/WebGL/web/captures
+          # Temporary: dump the screenshots in the log to review them without downloading the artifact.
+          for f in captures/*.png; do echo "CAPTURE $f $(base64 -w0 "$f")"; done
 
       - uses: actions/upload-artifact@v4
         with:
