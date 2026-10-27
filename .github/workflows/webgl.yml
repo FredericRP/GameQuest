@@ -1,0 +1,103 @@
+# WebGL build of the package sample with GameCI (inside a generated host Unity project),
+# automatic screenshots and publication of the playable build on GitHub Pages.
+# Required secrets: UNITY_LICENSE (content of Unity_lic.ulf), UNITY_EMAIL, UNITY_PASSWORD.
+name: WebGL
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [primary]
+  pull_request:
+
+concurrency:
+  group: webgl-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  # The package requires Unity 2020.1: use the latest 2020 LTS available on GameCI.
+  UNITY_VERSION: 2020.3.48f1
+  HOST: webgl-host
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Host Unity project
+        run: |
+          node .github/scripts/host-project.mjs . "$HOST" "$UNITY_VERSION"
+          cp .github/webgl/CIWebGLSettings.cs "$HOST/Assets/Editor/"
+
+      - name: TextMesh Pro essentials
+        run: |
+          # A generated project lacks the TMP essentials (default font, TMP Settings): unpack them from the package.
+          version=$(node -p "require('./package.json').dependencies?.['com.unity.textmeshpro'] ?? ''")
+          [ -z "$version" ] && exit 0
+          tmp=$(mktemp -d)
+          curl -sfL "https://download.packages.unity.com/com.unity.textmeshpro/-/com.unity.textmeshpro-$version.tgz" | tar xz -C "$tmp"
+          mkdir "$tmp/essentials"
+          tar xzf "$tmp/package/Package Resources/TMP Essential Resources.unitypackage" -C "$tmp/essentials"
+          for dir in "$tmp"/essentials/*/; do
+            path="$HOST/$(head -n1 "$dir/pathname" | tr -d '\r')"
+            if [ -f "$dir/asset" ]; then mkdir -p "$(dirname "$path")"; cp "$dir/asset" "$path"; else mkdir -p "$path"; fi
+            cp "$dir/asset.meta" "$path.meta"
+          done
+          ls "$HOST/Assets/TextMesh Pro/Resources"
+
+      - uses: actions/cache@v4
+        with:
+          path: ${{ env.HOST }}/Library
+          key: Library-WebGL-${{ env.UNITY_VERSION }}-${{ hashFiles('package.json') }}
+          restore-keys: Library-WebGL-${{ env.UNITY_VERSION }}-
+
+      - uses: game-ci/unity-builder@v4
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+        with:
+          unityVersion: ${{ env.UNITY_VERSION }}
+          projectPath: ${{ env.HOST }}
+          targetPlatform: WebGL
+          buildName: web
+          allowDirtyBuild: true
+
+      - name: Screenshots
+        run: |
+          sudo chown -R "$USER" build
+          # Install Playwright next to the script: the root package.json is the UPM package, not an npm project.
+          cd .github/scripts
+          echo '{"private": true}' > package.json
+          npm install --no-save --no-package-lock playwright@1.48.2
+          npx playwright install --with-deps chromium
+          cd "$GITHUB_WORKSPACE"
+          node .github/scripts/captures.mjs build/WebGL/web captures
+          cp -r captures build/WebGL/web/captures
+          # Temporary: dump the screenshots in the log to review them without downloading the artifact.
+          for f in captures/*.png; do echo "CAPTURE $f $(base64 -w0 "$f")"; done
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: captures
+          path: captures
+
+      - if: github.ref == 'refs/heads/primary'
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: build/WebGL/web
+
+  deploy:
+    if: github.ref == 'refs/heads/primary'
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
