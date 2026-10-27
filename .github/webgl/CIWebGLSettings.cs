@@ -16,8 +16,12 @@ static class CIWebGLSettings
     // A fresh project lacks the TextMesh Pro essentials (default font and settings): import them once.
     // Path.GetFullPath resolves the virtual Packages/ path to the package cache.
     string essentials = Path.GetFullPath(TMPEssentials);
+    UnityEngine.Debug.Log($"[CI] TMP essentials: {essentials} (found: {File.Exists(essentials)})");
     if (File.Exists(essentials) && !Directory.Exists("Assets/TextMesh Pro"))
       AssetDatabase.ImportPackage(essentials, false);
+
+    // Full exception messages and stack traces in the browser console, to debug the screenshots run.
+    PlayerSettings.WebGL.exceptionSupport = WebGLExceptionSupport.FullWithStacktrace;
 
 #if UNITY_2020_1_OR_NEWER
     // GitHub Pages sends no Content-Encoding header: the loader decompresses by itself.
