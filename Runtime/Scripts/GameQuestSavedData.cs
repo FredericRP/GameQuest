@@ -102,6 +102,7 @@ namespace FredericRP.GameQuest
       if (!questProgressList.Contains(questProgress))
       {
         questProgressList.Add(questProgress);
+        LinkQuestInfo(questProgress);
         return questProgress;
       }
       // Here, that means that we can have a questProgress with the same game quest id but not the same data in it (two created objects, can happen with serialization)
@@ -111,7 +112,20 @@ namespace FredericRP.GameQuest
       existingQuestProgress.gameQuestStatus = questProgress.gameQuestStatus;
       existingQuestProgress.LaunchDate = questProgress.LaunchDate;
       existingQuestProgress.launchMode = questProgress.launchMode;
+      LinkQuestInfo(existingQuestProgress);
       return existingQuestProgress;
+    }
+
+    /// <summary>
+    /// Link the quest info to its progress, so the game can update it directly.<br/>
+    /// Also done for progress created at runtime: without saved player data (first launch, WebGL...), onPlayerDataLoaded never runs.
+    /// </summary>
+    /// <param name="questProgress"></param>
+    void LinkQuestInfo(QuestProgress questProgress)
+    {
+      GameQuestInfo questInfo = GameQuestManager.Instance?.GameQuestCatalog?.GetQuest(questProgress.gameQuestId);
+      if (questInfo != null)
+        questInfo.runtimeQuestProgress = questProgress;
     }
 
     public override void onPlayerDataLoaded()
@@ -120,7 +134,7 @@ namespace FredericRP.GameQuest
       // Link quest progress and quest info for faster usage in the game
       for (int i = 0; i < questProgressList.Count; i++)
       {
-        GameQuestManager.Instance.GameQuestCatalog.GetQuest(questProgressList[i].gameQuestId).runtimeQuestProgress = questProgressList[i];
+        LinkQuestInfo(questProgressList[i]);
       }
     }
   }
