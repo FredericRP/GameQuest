@@ -5,6 +5,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## Unreleased
 
+## [1.0.3] - 2026-11-24
+
+### Fixed
+- quest progress created at runtime is linked to its quest info, so quests progress even without saved player data (first launch, WebGL)
+
 ## [1.0.2] - 2022-10-18
 
 ### Fixed
