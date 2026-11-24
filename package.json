@@ -1,6 +1,6 @@
 {
     "name": "com.fredericrp.gamequest",
-    "version": "1.0.3",
+    "version": "1.0.4",
     "displayName": "FRP Game Quest",
     "description": "GameQuest provides an easy way to create quests for a game, and the management of them.",
     "unity": "2020.1",
