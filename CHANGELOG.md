@@ -5,6 +5,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## Unreleased
 
+## [1.0.4] - 2026-11-24
+
+### Fixed
+- sample: flowers only count for quests that have started and are not over (a quest starting later could be completed and rewarded early)
+- sample: today's quests are launched when the game starts, not only when the quest popup is opened
+- sample: a quest waiting for its reward is no longer relaunched when the popup opens
+
 ## [1.0.3] - 2026-11-24
 
 ### Fixed

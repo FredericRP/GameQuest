@@ -35,6 +35,8 @@ namespace FredericRP.GameQuest
           questProgress.gameQuestStatus = GameQuestSavedData.GameQuestStatus.WaitingForEnable;
         questInfoList.Add(questInfo);
       }
+      // Launch the quests right away, not only when the quest popup is opened
+      GameQuestListPopup.LaunchTodayQuests(GameQuestManager.Instance.GameQuestCatalog);
     }
 
     private void OnEnable()
@@ -64,7 +66,10 @@ namespace FredericRP.GameQuest
       {
         GameQuestInfo questInfo = questInfoFilteredList[i];
         Debug.Log("FlowerGrabbed " + id + " -> quest " + questInfo);
-        if (questInfo != null && questInfo.runtimeQuestProgress?.gameQuestStatus == GameQuestSavedData.GameQuestStatus.InProgress)
+        // Only count flowers for quests that have started (launch date reached) and are not over
+        if (questInfo != null && questInfo.runtimeQuestProgress?.gameQuestStatus == GameQuestSavedData.GameQuestStatus.InProgress
+          && questInfo.runtimeQuestProgress.LaunchDate <= System.DateTime.Now
+          && (questInfo.duration <= 0 || GameQuestInfo.RemainingTime(questInfo, questInfo.runtimeQuestProgress).TotalSeconds > 0))
         {
           questInfo.runtimeQuestProgress.currentProgress++;
           Debug.Log("FlowerGrabbed " + id + " -> progress " + questInfo.runtimeQuestProgress.currentProgress + " / " + questInfo.target);
